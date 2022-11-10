@@ -5,6 +5,21 @@ const { Op } = require("sequelize");
 class DishService {
   constructor() {}
 
+  async findByFilter(dataForFilter) {
+    const { menus, priceStart, priceEnd } = dataForFilter;
+    const dishes = await models.Dish.findAll({
+      where: {
+        menuId: { [Op.in]: menus },
+        price: {
+          [Op.gte]: priceStart,
+          [Op.lte]: priceEnd,
+        },
+      },
+      include: [{ model: models.Menu, as: "menu" }],
+    });
+    return dishes;
+  }
+
   async findAll() {
     const dishes = await models.Dish.findAll({
       include: [{ model: models.Menu, as: "menu" }],

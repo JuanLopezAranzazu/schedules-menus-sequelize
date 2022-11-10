@@ -10,6 +10,16 @@ const {
   getDishSchema,
 } = require("./../schemas/dish.schema");
 
+dishRouter.get("/filter", async (req, res, next) => {
+  try {
+    const { body: dataForFilter } = req;
+    const dishes = await dishService.findByFilter(dataForFilter);
+    res.status(200).json(dishes);
+  } catch (error) {
+    next(error);
+  }
+});
+
 dishRouter.get("/", async (req, res, next) => {
   try {
     const dishes = await dishService.findAll();
