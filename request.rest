@@ -1,0 +1,67 @@
+GET http://localhost:3001/api/v1/menus
+
+###
+
+GET http://localhost:3001/api/v1/menus/5
+
+###
+
+POST http://localhost:3001/api/v1/menus
+Content-Type: application/json
+
+{
+  "name": "Menu5"
+}
+
+###
+
+PUT http://localhost:3001/api/v1/menus/2
+Content-Type: application/json
+
+{
+  "name": "Menu2",
+  "scheduleId": 2
+}
+
+###
+
+GET http://localhost:3001/api/v1/schedules
+
+###
+
+POST http://localhost:3001/api/v1/schedules
+Content-Type: application/json
+
+{
+  "days": [2, 3, 5],
+  "dateStart": "2022-11-07",
+  "dateEnd": "2022-11-25"
+}
+
+###
+
+PUT http://localhost:3001/api/v1/schedules/1
+Content-Type: application/json
+
+{
+  "days": [1, 3, 5],
+  "dateStart": "2022-11-07",
+  "dateEnd": "2022-11-23"
+}
+
+###
+
+GET http://localhost:3001/api/v1/dishes
+
+###
+
+POST http://localhost:3001/api/v1/dishes
+Content-Type: application/json
+
+{
+  "name": "Dish5",
+  "description": "Description5",
+  "price": 57575,
+  "stock": 24,
+  "menuId": 1
+}

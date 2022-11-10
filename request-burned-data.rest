@@ -1,0 +1,26 @@
+GET http://localhost:3001/menus
+
+###
+
+POST http://localhost:3001/menus
+Content-Type: application/json
+
+{
+  "name": "Menu3",
+  "scheduleId": 3
+}
+
+###
+
+GET http://localhost:3001/schedules
+
+###
+
+POST http://localhost:3001/schedules
+Content-Type: application/json
+
+{
+  "days": [1, 6],
+  "dateStart": "2022-11-01",
+  "dateEnd": "2022-12-01"
+}
