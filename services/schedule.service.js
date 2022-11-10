@@ -1,9 +1,21 @@
 const { models } = require("../libs/sequelize");
 const boom = require("@hapi/boom");
 const { Op } = require("sequelize");
+const { validateInputArray } = require("./../tools/validateArray");
 
 class ScheduleService {
   constructor() {}
+
+  async findByFilter(dataForFilter) {
+    const { days } = dataForFilter;
+    if (!validateInputArray(days))
+      throw boom.badRequest("Incorrect or missing days");
+    const schedules = await models.Schedule.findAll({
+      where: { days: { [Op.contains]: days } },
+      include: [{ model: models.Menu, as: "menu" }],
+    });
+    return schedules;
+  }
 
   async findAll() {
     const schedules = await models.Schedule.findAll({

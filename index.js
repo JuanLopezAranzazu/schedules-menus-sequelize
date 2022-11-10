@@ -14,6 +14,7 @@ routes(app);
 // api tests with burned data
 const arrayMenus = require("./burned_data/menus.json");
 const arraySchedules = require("./burned_data/schedules.json");
+const { validateInputArray } = require("./tools/validateArray");
 
 function validateDataForMenu(dataForMenu) {
   const { name, scheduleId } = dataForMenu;
@@ -29,16 +30,10 @@ function validateDataForMenu(dataForMenu) {
   return dataForMenu;
 }
 
-function validataArrayNumber(inputArray) {
-  return inputArray.every((item) => {
-    return typeof item === "number" && item >= 0 && item <= 6;
-  });
-}
-
 function validateDataForSchedule(dataForSchedule) {
   const { days, dateStart, dateEnd } = dataForSchedule;
   const regex = /^([0-9]{4})\-([0-9]{2})\-([0-9]{2})$/;
-  if (!Array.isArray(days) || !validataArrayNumber(days)) {
+  if (!Array.isArray(days) || !validateInputArray(days)) {
     throw new Error("Incorrect or missing days");
   }
   if (!regex.test(dateStart) || !regex.test(dateEnd)) {

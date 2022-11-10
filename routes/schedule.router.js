@@ -10,6 +10,16 @@ const {
   getScheduleSchema,
 } = require("../schemas/schedule.schema");
 
+scheduleRouter.get("/filter", async (req, res, next) => {
+  try {
+    const { body: dataForFilter } = req;
+    const schedules = await scheduleService.findByFilter(dataForFilter);
+    res.status(200).json(schedules);
+  } catch (error) {
+    next(error);
+  }
+});
+
 scheduleRouter.get("/", async (req, res, next) => {
   try {
     const schedules = await scheduleService.findAll();

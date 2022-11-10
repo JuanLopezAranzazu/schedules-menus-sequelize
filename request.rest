@@ -33,6 +33,15 @@ GET http://localhost:3001/api/v1/schedules
 
 ###
 
+GET http://localhost:3001/api/v1/schedules/filter
+Content-Type: application/json
+
+{
+  "days": [2, 3]
+}
+
+###
+
 POST http://localhost:3001/api/v1/schedules
 Content-Type: application/json
 
