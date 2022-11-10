@@ -10,6 +10,15 @@ const {
   getMenuSchema,
 } = require("./../schemas/menu.schema");
 
+menuRouter.get("/schedule", async (req, res, next) => {
+  try {
+    const menus = await menuService.findBySchedule();
+    res.status(200).json(menus);
+  } catch (error) {
+    next(error);
+  }
+});
+
 menuRouter.get("/", async (req, res, next) => {
   try {
     const menus = await menuService.findAll();

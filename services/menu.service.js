@@ -2,8 +2,46 @@ const { models } = require("../libs/sequelize");
 const boom = require("@hapi/boom");
 const { Op } = require("sequelize");
 
+const weekday = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+];
+
 class MenuService {
   constructor() {}
+
+  async findBySchedule() {
+    const date = new Date();
+    const day = date.getDay();
+    console.log(weekday[day], date.toLocaleDateString());
+    const menus = await models.Menu.findAll({
+      include: [
+        {
+          model: models.Schedule,
+          as: "schedule",
+          where: {
+            days: { [Op.contains]: [day] },
+            dateStart: {
+              [Op.lte]: date,
+            },
+            dateEnd: {
+              [Op.gte]: date,
+            },
+          },
+        },
+        {
+          model: models.Dish,
+          as: "dishes",
+        },
+      ],
+    });
+    return menus;
+  }
 
   async findAll() {
     const menus = await models.Menu.findAll({
